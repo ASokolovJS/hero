@@ -1,0 +1,1 @@
+{"name":"Hero","strength":5,"dexterity":240,"intellect":3,"isInvincible":true}

@@ -1,11 +1,14 @@
 const express =  require('express')
 const path = require("path");
 const app = express()
-const { Validator, ValidationError } = require("express-json-validator-middleware")
+const { ValidationError } = require("express-json-validator-middleware")
+
+
 ///////////////////////////////////////////////////////
 
 app.use('/img', express.static(path.join(__dirname, "img")));
 app.use(express.json());
+
 
 ///////////////////////////////////////////////////////
 
@@ -23,20 +26,20 @@ app.use('/setHeroStats', setHeroStats)
 app.use('/uploadHeroImage', uploadHeroImage)
 app.use('/getHeroImage', getHeroImage)
 
+///////////////////////////////////////////////////////
+
 app.use((error, request, response, next) => {
-  // Check the error is a validation error
   if (error instanceof ValidationError) {
     console.log(error)
     response.status(400).send(error.validationErrors.body);
     next();
   } else {
-    // Pass error on if not a validation error
     next(error);
   }
 });
 
 
 app.listen(3000, () => {
-  console.log("Server started")
+  console.log("Server has been started")
 })
 
