@@ -1,18 +1,8 @@
 const {Router} = require('express')
-const fs = require('fs')
-const path = require('path')
 const router =  Router()
+const { getHeroStats } = require('../controllers/heroStas-controller')
 
-router.get('/', (req,res) => {
-  fs.readFile(path.join("../hero/", "db", 'stats.txt'),((err, data) => {
-    if(err) {
-      res.status(502)
-      res.end("Данных нет")
-    }else{
-      const stats = JSON.parse(Buffer.from(data).toString())
-      res.end(stats)
-    }
-  }))
-})
+
+router.get('/', getHeroStats)
 
 module.exports = router
